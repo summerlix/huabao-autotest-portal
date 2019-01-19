@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.king.dao.mapper.AtdbUserMapper">
+
+	<resultMap id="showUsers" type="com.king.entity.AtdbUser">
+		<result column="account" jdbcType="VARCHAR" property="account" />
+		<result column="guid" jdbcType="INTEGER" property="guid" />
+		<result column="accflag" jdbcType="INTEGER" property="accflag" />
+	</resultMap>
+
+	<select id="listAllUsers" resultMap="showUsers">
+		SELECT account,guid,accflag FROM user_info
+	</select>
+
+	<select id="findUserByGuid" resultMap="showUsers">
+		SELECT account,guid,accflag FROM user_info where guid=#{guid}
+	</select>
+
+	<insert id="insertUser" parameterType="com.king.entity.TbSendUser" keyProperty="id" useGeneratedKeys="true">
+		INSERT INTO user_info (account,name,password,guid,accflag)
+		VALUES ( #{name}, #{name}, #{password}, #{guid}, #{accflag})
+	</insert>
+
+	<delete id="deleteUserByGuid" parameterType="java.lang.Integer">
+		delete from user_info where guid=#{guid}
+	</delete>
+
+	<update id="updateUserFromTB" parameterType="com.king.entity.TbSendUser">
+		update user_info
+		set user_info.account=#{name},
+		    user_info.name=#{name},
+			user_info.password=#{password},
+			user_info.accflag=#{accflag}
+		where user_info.guid=#{guid}
+	</update>
+
+	<select id="test" >
+		select * from user_info
+	</select>
+
+</mapper>

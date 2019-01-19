@@ -1,0 +1,48 @@
+server:
+  port: 8082
+  context-path: /autotest-portal
+
+spring:
+  application:
+    name: autotest-portal
+
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+#    url: jdbc:mysql://52.83.151.178:13306/orient?serverTimezone=Asia/Shanghai&useSSL=false&useUnicode=true&characterEncoding=UTF-8&autoReconnect=true
+#    username: root
+#    password: Chenhai761124
+    url: jdbc:mysql://localhost:3306/autotest?useUnicode=true&characterEncoding=utf8&autoReconnect=true&useSSL=false
+    username: root
+    password: 123
+    type: com.alibaba.druid.pool.DruidDataSource
+    
+    initialSize: 5
+    minIdle: 5
+    maxActive: 20
+    maxWait: 60000
+    timeBetweenEvictionRunsMillis: 60000
+    minEvictableIdleTimeMillis: 300000
+    validationQuery: SELECT 1 FROM DUAL
+    testWhileIdle: true
+    testOnBorrow: false
+    testOnReturn: false
+    poolPreparedStatements: true
+      
+    filters: stat,wall,log4j
+    maxPoolPreparedStatementPerConnectionSize: 20
+    useGlobalDataSourceStat: true  
+    connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=500
+    
+mybatis:
+#  mapper-locations: classpath:mybatis/**.xml
+  mapperLocations: classpath:mybatis/*.xml
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka
+  
+ribbon:  
+  ReadTimeout: 500000  
+  ConnectTimeout: 500000
+  SocketTimeout: 500000
