@@ -16,6 +16,17 @@
 		SELECT account,guid,accflag FROM user_info where guid=#{guid}
 	</select>
 
+	<resultMap id="loginUserMessage" type="com.king.entity.AtdbUser">
+		<result column="account" jdbcType="VARCHAR" property="account" />
+		<result column="password" jdbcType="VARCHAR" property="password" />
+		<result column="guid" jdbcType="INTEGER" property="guid" />
+		<result column="accflag" jdbcType="INTEGER" property="accflag" />
+	</resultMap>
+
+	<select id="findUserByAccount" resultMap="loginUserMessage">
+		SELECT account,password,guid,accflag FROM user_info where account=#{account}
+	</select>
+
 	<insert id="insertUser" parameterType="com.king.entity.TbSendUser" keyProperty="id" useGeneratedKeys="true">
 		INSERT INTO user_info (account,name,password,guid,accflag)
 		VALUES ( #{name}, #{name}, #{password}, #{guid}, #{accflag})

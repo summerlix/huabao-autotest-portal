@@ -23,6 +23,14 @@ public class CallbackDataDTO implements Serializable{
 		instance.setMessage(null);
 		return instance;
 	}
+
+	public static CallbackDataDTO build(boolean success, Object data, String message)
+	{
+		instance.setSuccess(success);
+		instance.setData(data);
+		instance.setMessage(message);
+		return instance;
+	}
 	
 	private CallbackDataDTO() {
 		super();

@@ -22,6 +22,10 @@ public class AtdbUserService {
 		return atdbUserMapper.findUserByGuid(guid);
 	}
 
+	public AtdbUser findUserByAccount(String account){
+		return atdbUserMapper.findUserByAccount(account);
+	}
+
 	public int insertUser(TbSendUser tbSendUser) {
 		int guid = tbSendUser.getGuid();
 		if (atdbUserMapper.findUserByGuid(guid) == null)	{

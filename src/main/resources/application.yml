@@ -8,12 +8,9 @@ spring:
 
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
-#    url: jdbc:mysql://52.83.151.178:13306/orient?serverTimezone=Asia/Shanghai&useSSL=false&useUnicode=true&characterEncoding=UTF-8&autoReconnect=true
-#    username: root
-#    password: Chenhai761124
     url: jdbc:mysql://localhost:3306/autotest?useUnicode=true&characterEncoding=utf8&autoReconnect=true&useSSL=false
     username: root
-    password: 123
+    password: 138628
     type: com.alibaba.druid.pool.DruidDataSource
     
     initialSize: 5
@@ -34,7 +31,6 @@ spring:
     connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=500
     
 mybatis:
-#  mapper-locations: classpath:mybatis/**.xml
   mapperLocations: classpath:mybatis/*.xml
 
 eureka:

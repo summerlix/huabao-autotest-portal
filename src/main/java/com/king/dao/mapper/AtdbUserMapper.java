@@ -18,6 +18,8 @@ public interface AtdbUserMapper {
 
     AtdbUser findUserByGuid(Integer guid);
 
+    AtdbUser findUserByAccount(String account);    //通过账户名account，来查询账户信息：用户是否存在，密码多少，accflag多少
+
     int insertUser(TbSendUser tbSendUser);
 
     int deleteUserByGuid(Integer guid);
