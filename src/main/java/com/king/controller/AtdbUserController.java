@@ -40,7 +40,7 @@ public class AtdbUserController
 	@DeleteMapping(value = "/deleteUser")
 	@ApiOperation(value = "删除某guid的用户")
 	public CallbackDataDTO deleteUser(@RequestParam(value="guid") Integer guid)    {
-		return CallbackDataDTO.build(true, atdbUserService.deleteUserByGuid(guid)) ;
+		return CallbackDataDTO.build(true, atdbUserService.deleteUserByGuid(guid), "删除成功") ;
 	}
 
 
