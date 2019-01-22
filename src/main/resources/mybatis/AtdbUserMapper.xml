@@ -28,8 +28,8 @@
 	</select>
 
 	<insert id="insertUser" parameterType="com.king.entity.TbSendUser" keyProperty="id" useGeneratedKeys="true">
-		INSERT INTO user_info (account,name,password,guid,accflag)
-		VALUES ( #{name}, #{name}, #{password}, #{guid}, #{accflag})
+		INSERT INTO user_info (account,name,password,role_id,guid,accflag)
+		VALUES ( #{name}, #{name}, #{password}, 3, #{guid}, #{accflag})
 	</insert>
 
 	<delete id="deleteUserByGuid" parameterType="java.lang.Integer">
