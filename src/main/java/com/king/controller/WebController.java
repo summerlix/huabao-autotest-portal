@@ -2,12 +2,16 @@ package com.king.controller;
 
 import java.util.HashMap;
 import java.util.Map;
-
+import com.king.dto.CallbackDataDTO;
 import javax.servlet.http.HttpSession;
+
+import com.alibaba.fastjson.JSONObject;
 import com.king.entity.AtdbUser;
 import com.king.service.business.AtdbUserService;
+import com.king.service.http.HttpConnect;
 import com.king.service.utils.DEScode;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import com.king.dto.CallbackDataDTO;
@@ -52,12 +56,32 @@ public class WebController {
 
 	@GetMapping(value = "/logout")
 	@ApiOperation(value = "logout")
+	public String logout() {
+		return "redirect:/login";
+	}
 //	public String logout(HttpSession session) {
 //			// 移除session
 //			session.removeAttribute(WebSecurityConfig.SESSION_KEY);
 
-	public String logout() {
-		return "redirect:/login";
+
+	@GetMapping(value = "/getToken")
+	@ApiOperation(value = "getToken")
+	public  CallbackDataDTO getTBtoken(String name , String passwd)
+	{
+		String urlParam = "http://quail.lab.tb/api/customer/obtain-auth-token/";
+		Map<String, Object> mapobj = new HashMap<>();
+		mapobj.put("email",name);
+		mapobj.put("password", passwd);
+		HttpConnect httpConnect = new HttpConnect();
+		String rst = httpConnect.httpClientGet(urlParam, mapobj, "utf-8");
+ 		JSONObject jsobj = JSONObject.parseObject(rst);
+ 		if (jsobj.containsKey("token"))
+			return CallbackDataDTO.build(true, jsobj,"获取token成功") ;
+ 		else
+			return CallbackDataDTO.build(false, jsobj,"获取token失败") ;
 	}
+
+
+
 
 }

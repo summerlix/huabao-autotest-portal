@@ -34,7 +34,7 @@ public class AtdbUserController
 	@PostMapping(value = "/insertUser")
 	@ApiOperation(value = "插入一条用户记录")
 	public CallbackDataDTO insertUser(@ApiParam("用户记录数据") TbSendUser tbSendUser)  throws Exception  {
-		return CallbackDataDTO.build(true, atdbUserService.insertUser(tbSendUser)) ;
+		return CallbackDataDTO.build(true, atdbUserService.insertUser(tbSendUser), "成功") ;
 	}
 
 	@DeleteMapping(value = "/deleteUser")
