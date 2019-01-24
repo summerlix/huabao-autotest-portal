@@ -27,20 +27,24 @@ public class AtdbUserController
 
 	@GetMapping(value = "/findUserByGuid")
     @ApiOperation(value = "列出某guid的用户")
-	public CallbackDataDTO findUsersByName(@ApiParam("guid")@RequestParam(value="guid")Integer guid)    {
+	public CallbackDataDTO findUsersByName(@ApiParam(value = "guid", required = true) @RequestParam Integer guid) {
 		return CallbackDataDTO.build(true, atdbUserService.findUserByGuid(guid)) ;
     }
 
 	@PostMapping(value = "/insertUser")
 	@ApiOperation(value = "插入一条用户记录")
-	public CallbackDataDTO insertUser(@ApiParam("用户记录数据") TbSendUser tbSendUser)  throws Exception  {
+	public CallbackDataDTO insertUser(TbSendUser tbSendUser) throws Exception {
 		return CallbackDataDTO.build(true, atdbUserService.insertUser(tbSendUser), "成功") ;
 	}
 
 	@DeleteMapping(value = "/deleteUser")
 	@ApiOperation(value = "删除某guid的用户")
-	public CallbackDataDTO deleteUser(@RequestParam(value="guid") Integer guid)    {
-		return CallbackDataDTO.build(true, atdbUserService.deleteUserByGuid(guid), "删除成功") ;
+	public CallbackDataDTO deleteUser(@ApiParam(value="guid", required = true) @RequestParam Integer guid) {
+		int delrst = atdbUserService.deleteUserByGuid(guid);
+		if (delrst == 0) {
+			return CallbackDataDTO.build(true, 0, "没有该guid的用户") ;
+		}
+		return CallbackDataDTO.build(true, delrst, "删除成功") ;
 	}
 
 

@@ -39,7 +39,8 @@ public class WebController {
 	@PostMapping(value = "/loginPost")
 	@ApiOperation(value = "loginPost")
 	//public CallbackDataDTO loginPost(String account, String password, HttpSession session) {
-	public CallbackDataDTO loginPost(String account, String passwd) throws Exception{
+	public CallbackDataDTO loginPost(@ApiParam(name = "account",value = "用户名", required = true) @RequestParam String account,
+                                     @ApiParam(name = "passwd",value = "密码", required = true) @RequestParam String passwd) throws Exception{
 		AtdbUser atdbUser = atdbUserService.findUserByAccount(account);
 		if (atdbUser == null)
 			return CallbackDataDTO.build(false, "不存在用户：" + account);
@@ -64,13 +65,14 @@ public class WebController {
 //			session.removeAttribute(WebSecurityConfig.SESSION_KEY);
 
 
-	@GetMapping(value = "/getToken")
-	@ApiOperation(value = "getToken")
-	public  CallbackDataDTO getTBtoken(String name , String passwd)
+	@GetMapping(value = "/getTBtoken")
+	@ApiOperation(value = "getTBtoken")
+	public CallbackDataDTO getTBtoken(@ApiParam(name = "email",value = "邮箱", required = true) @RequestParam String email ,
+                                      @ApiParam(name = "passwd",value = "密码", required = true) @RequestParam String passwd)
 	{
 		String urlParam = "http://quail.lab.tb/api/customer/obtain-auth-token/";
 		Map<String, Object> mapobj = new HashMap<>();
-		mapobj.put("email",name);
+		mapobj.put("email",email);
 		mapobj.put("password", passwd);
 		HttpConnect httpConnect = new HttpConnect();
 		String rst = httpConnect.httpClientGet(urlParam, mapobj, "utf-8");
