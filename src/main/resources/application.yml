@@ -1,6 +1,7 @@
 server:
   port: 8082
-#  context-path: /autotest-portal
+  servlet:
+    context-path: /autotest-portal
 
 spring:
   application:

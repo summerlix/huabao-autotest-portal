@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 
 
 @RestController
-@RequestMapping("/autotest-portal")
+//@RequestMapping("/autotest-portal")
 @Validated
 public class WebController {
 

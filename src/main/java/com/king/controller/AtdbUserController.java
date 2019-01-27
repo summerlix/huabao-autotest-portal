@@ -1,7 +1,6 @@
 package com.king.controller;
 
 import com.king.dto.CallbackDataDTO;
-import com.king.entity.AtdbUser;
 import com.king.entity.TbSendUser;
 import com.king.service.business.AtdbUserService;
 import io.swagger.annotations.ApiOperation;
@@ -12,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 
 @RestController
-@RequestMapping("/autotest-portal")
+//@RequestMapping("/autotest-portal")
 @Validated
 public class AtdbUserController
 {
