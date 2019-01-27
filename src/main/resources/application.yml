@@ -1,14 +1,14 @@
 server:
   port: 8082
-  context-path: /autotest-portal
+#  context-path: /autotest-portal
 
 spring:
   application:
     name: autotest-portal
 
   datasource:
-    driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/autotest?useUnicode=true&characterEncoding=utf8&autoReconnect=true&useSSL=false
+    driver-class-name: com.mysql.cj.jdbc.Driver   # com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/autotest?serverTimezone=UTC&useUnicode=true&characterEncoding=utf8&autoReconnect=true&useSSL=false
     username: root
     password: 138628
     type: com.alibaba.druid.pool.DruidDataSource
@@ -29,14 +29,14 @@ spring:
     maxPoolPreparedStatementPerConnectionSize: 20
     useGlobalDataSourceStat: true  
     connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=500
-    
+
 mybatis:
   mapperLocations: classpath:mybatis/*.xml
 
-eureka:
-  client:
-    service-url:
-      defaultZone: http://localhost:8761/eureka
+#eureka:
+#  client:
+#    service-url:
+#      defaultZone: http://localhost:8761/eureka
   
 ribbon:  
   ReadTimeout: 500000  

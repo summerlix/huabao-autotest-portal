@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 
 @RestController
-//@RequestMapping(value = "/autotest-portal")
+@RequestMapping("/autotest-portal")
 @Validated
 public class AtdbUserController
 {

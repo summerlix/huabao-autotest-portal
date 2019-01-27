@@ -3,24 +3,19 @@ package com.king.controller;
 import java.util.HashMap;
 import java.util.Map;
 import com.king.dto.CallbackDataDTO;
-import javax.servlet.http.HttpSession;
-
 import com.alibaba.fastjson.JSONObject;
 import com.king.entity.AtdbUser;
 import com.king.service.business.AtdbUserService;
 import com.king.service.http.HttpConnect;
-import com.king.service.utils.DEScode;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import com.king.dto.CallbackDataDTO;
-import org.springframework.ui.Model;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+
 @RestController
-//@RequestMapping(value = "/autotest-portal")
+@RequestMapping("/autotest-portal")
 @Validated
 public class WebController {
 
@@ -71,7 +66,7 @@ public class WebController {
                                       @ApiParam(name = "passwd",value = "密码", required = true) @RequestParam String passwd)
 	{
 		String urlParam = "http://quail.lab.tb/api/customer/obtain-auth-token/";
-		Map<String, Object> mapobj = new HashMap<>();
+		Map<String, Object> mapobj = new HashMap<String, Object>();
 		mapobj.put("email",email);
 		mapobj.put("password", passwd);
 		HttpConnect httpConnect = new HttpConnect();
