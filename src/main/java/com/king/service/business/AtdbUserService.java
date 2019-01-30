@@ -38,13 +38,13 @@ public class AtdbUserService {
 		String passwd = tbSendUser.getPassword();
 
 		if (atdbUserMapper.findUserByGuid(guid) == null)	{
-			System.out.printf("\n找不到该用户guid:%d，将执行insert插入新用户: %s\n",guid,tbSendUser.toString());
+			System.out.printf("\n找不到该用户guid:%d，将执行insert插入新用户\n",guid);
 			String hexstr = generateHexDEScode("20251230", passwd);
 			tbSendUser.setPassword(hexstr);
 			return atdbUserMapper.insertUser(tbSendUser);
 		}
 
-		System.out.printf("\n找到该用户guid:%d，将进行update修改用户信息: %s\n",guid, tbSendUser.toString());
+		System.out.printf("\n找到该用户guid:%d，将进行update修改用户信息\n",guid);
 		if (passwd != null) {
 			// 如果TB修改密码，会正常发password过来，我们先加密，然后入库；
 			String hexstr = generateHexDEScode("20251230", passwd);
