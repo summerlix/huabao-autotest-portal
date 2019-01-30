@@ -8,6 +8,7 @@ import com.king.service.utils.GetProcessID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.util.List;
 
 @Service
@@ -15,6 +16,9 @@ public class AtdbUserService {
 	
 	@Autowired
 	private AtdbUserMapper atdbUserMapper;
+
+//	@Autowired
+//	private AtdbUser atdbUser;
 
 	public List<AtdbUser> listAllUsers()	{
 		return atdbUserMapper.listAllUsers();
@@ -28,20 +32,35 @@ public class AtdbUserService {
 		return atdbUserMapper.findUserByAccount(account);
 	}
 
-	public int insertUser(TbSendUser tbSendUser) throws Exception{
+	// 增加一个新用户或者修改用户信息
+	public int insertUser(TbSendUser tbSendUser) throws Exception {
 		int guid = tbSendUser.getGuid();
-		// 对密码进行加密
 		String passwd = tbSendUser.getPassword();
-		String hexstr = generateHexDEScode("20251230", passwd);
-		tbSendUser.setPassword(hexstr);
 
 		if (atdbUserMapper.findUserByGuid(guid) == null)	{
-			System.out.printf("\n找不到该用户guid:%d,直接insert插入\n",guid);
+			System.out.printf("\n找不到该用户guid:%d，将执行insert插入新用户\n",guid);
+			String hexstr = generateHexDEScode("20251230", passwd);
+			tbSendUser.setPassword(hexstr);
 			return atdbUserMapper.insertUser(tbSendUser);
 		}
 
-		System.out.printf("\n找到该用户guid:%d,将进行update\n",guid);
+		System.out.printf("\n找到该用户guid:%d，将进行update修改用户信息\n",guid);
+		if (passwd != null) {
+			// 如果TB修改密码，会正常发password过来，我们先加密，然后入库；
+			String hexstr = generateHexDEScode("20251230", passwd);
+			tbSendUser.setPassword(hexstr);
+		}else {
+			// 如果不属于修改密码，TB传过来的password字段为null, 我将数据库里的passwd取出来，塞到tbSendUser里（不再加密），然后执行insert或者update入库
+			passwd = atdbUserMapper.getPasswdByGuid(guid);
+			tbSendUser.setPassword(passwd);
+		}
 		return atdbUserMapper.updateUserFromTB(tbSendUser);
+
+	}
+
+	// 测试接口用服务，测完请删除 ...
+	public  String getPwdTest(Integer guid){
+		return  atdbUserMapper.getPasswdByGuid(guid);
 	}
 
 	public int deleteUserByGuid(Integer guid) {

@@ -4,11 +4,8 @@ import com.king.entity.AtdbUser;
 import com.king.entity.TbSendUser;
 import org.mapstruct.Mapper;
 import org.springframework.stereotype.Repository;
-
 import java.util.List;
 
-//import org.apache.ibatis.annotations.*;
-//import org.apache.ibatis.type.JdbcType;
 
 @Repository
 @Mapper
@@ -26,4 +23,5 @@ public interface AtdbUserMapper {
 
     int updateUserFromTB(TbSendUser tbSendUser);    //update TB过来的用户信息
 
+    String getPasswdByGuid(Integer guid);
 }

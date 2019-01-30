@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-
+@CrossOrigin
 @RestController
 //@RequestMapping("/autotest-portal")
 @Validated
@@ -45,6 +45,13 @@ public class AtdbUserController
 		}
 		return CallbackDataDTO.build(true, delrst, "删除成功") ;
 	}
+
+	// 测试接口用，测完请删除 ...
+	//	@GetMapping(value = "/getPwdTest")
+	//	@ApiOperation(value = "获取密码测试接口")
+	//	public CallbackDataDTO getPwdTest(@ApiParam(value="guid", required = true) @RequestParam Integer guid) {
+	//		return CallbackDataDTO.build(true, atdbUserService.getPwdTest(guid), "获取密码成功") ;
+	//	}
 
 
 }
